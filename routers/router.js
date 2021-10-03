@@ -2,6 +2,8 @@ const Router = require('express');
 const router = new Router();
 const Controller = require('../controllers/controller');
 const { check } = require('express-validator');
+const authToken = require('../middleware/auth.middleware');
+const roleToken = require('../middleware/role.middleware');
 
 router.post(
 	'/registration',
@@ -15,6 +17,6 @@ router.post(
 	Controller.registration
 );
 router.post('/login', Controller.login);
-router.get('/users', Controller.getUsers);
+router.get('/users', roleToken(['Admin']), Controller.getUsers);
 
 module.exports = router;

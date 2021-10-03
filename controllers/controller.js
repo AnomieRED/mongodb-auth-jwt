@@ -18,7 +18,9 @@ class Controller {
 		try {
 			const errors = validationResult(req);
 			if (!errors.isEmpty()) {
-				return res.status(400).json({ massage: 'Ошибка при регистрации', errors });
+				return res
+					.status(400)
+					.json({ massage: 'Ошибка при регистрации', errors });
 			}
 			const { username, password } = req.body;
 			const hasUser = await Users.findOne({ username });
@@ -45,7 +47,9 @@ class Controller {
 			const { username, password } = req.body;
 			const getUser = await Users.findOne({ username });
 			if (!getUser) {
-				return res.status(400).json({ message: `Пользователь ${username} не найдет` });
+				return res
+					.status(400)
+					.json({ message: `Пользователь ${username} не найдет` });
 			}
 			const validPassword = bcrypt.compareSync(password, getUser.password);
 			if (!validPassword) {
@@ -60,9 +64,10 @@ class Controller {
 
 	async getUsers(req, res) {
 		try {
-
+			const users = await Users.find({});
+			res.json(users);
 		} catch (error) {
-			res.status(400).json({ message: 'Registaration error' });
+			res.status(400).json({ message: 'User list error' });
 		}
 	}
 }
