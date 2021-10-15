@@ -2,7 +2,7 @@ const jwt = require('jsonwebtoken');
 const KEY = process.env.SECRET_KEY;
 
 module.exports = function (req, res, next) {
-	if (req.method === 'OPRIONS') {
+	if (req.method === 'OPTIONS') {
 		next();
 	}
 
